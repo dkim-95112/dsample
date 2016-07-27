@@ -1,38 +1,42 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_REDDIT, INVALIDATE_REDDIT,
-  REQUEST_POSTS, RECEIVE_POSTS
+  API_LOADED, INVALIDATE,
+  REQUEST, RECEIVE
 } from '../actions'
 
-function selectedReddit(state = 'reactjs', action) {
+function search(state = {
+  isApiLoaded: false
+}, action) {
   switch (action.type) {
-    case SELECT_REDDIT:
-      return action.reddit
+    case API_LOADED:
+      return Object.assign({}, state, {
+        isApiLoaded: true
+      })
     default:
       return state
   }
 }
 
-function posts(state = {
+function asyncRequest(state = {
   isFetching: false,
   didInvalidate: false,
-  items: []
+  results: {}
 }, action) {
   switch (action.type) {
-    case INVALIDATE_REDDIT:
+    case INVALIDATE:
       return Object.assign({}, state, {
         didInvalidate: true
       })
-    case REQUEST_POSTS:
+    case REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       })
-    case RECEIVE_POSTS:
+    case RECEIVE:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        items: action.posts,
+        response: action.response,
         lastUpdated: action.receivedAt
       })
     default:
@@ -40,22 +44,9 @@ function posts(state = {
   }
 }
 
-function postsByReddit(state = { }, action) {
-  switch (action.type) {
-    case INVALIDATE_REDDIT:
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
-      return Object.assign({}, state, {
-        [action.reddit]: posts(state[action.reddit], action)
-      })
-    default:
-      return state
-  }
-}
-
 const rootReducer = combineReducers({
-  postsByReddit,
-  selectedReddit
+  search,
+  asyncRequest
 })
 
 export default rootReducer

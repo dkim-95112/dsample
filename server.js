@@ -13,6 +13,9 @@ app.use(webpackHotMiddleware(compiler))
 app.get("/", function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
+app.get("/auth.js", function(req, res) {
+  res.sendFile(__dirname + '/youtube/auth.js')
+})
 
 app.listen(port, function(error) {
   if (error) {
