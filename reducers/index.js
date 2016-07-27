@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import {
-  API_LOADED, INVALIDATE,
+  API_LOADED, RESET,
   REQUEST, RECEIVE
 } from '../actions'
 
@@ -19,23 +19,20 @@ function search(state = {
 
 function asyncRequest(state = {
   isFetching: false,
-  didInvalidate: false,
-  results: {}
+  response: {}
 }, action) {
   switch (action.type) {
-    case INVALIDATE:
+    case RESET:
       return Object.assign({}, state, {
-        didInvalidate: true
+        response: {items: []}
       })
     case REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        didInvalidate: false
       })
     case RECEIVE:
       return Object.assign({}, state, {
         isFetching: false,
-        didInvalidate: false,
         response: action.response,
         lastUpdated: action.receivedAt
       })

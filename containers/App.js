@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { apiLoaded, ytsearch, invalidate } from '../actions'
+import { apiLoaded, ytsearch, reset } from '../actions'
 // import Picker from '../components/Picker'
 import Search from './Search'
 import Items from '../components/Items'
