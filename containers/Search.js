@@ -10,22 +10,31 @@ class Search extends Component {
   render(){
     let input
     return (
-      <div>
-        <form onSubmit={e => {
-          e.preventDefault()
-          if (!input.value.trim()) {
-            return
-          }
-          this.props.onSearch(input.value)
-        }}>
-          <input ref={node => {
-            input = node
-          }} />
-          <button disabled={!this.props.isApiLoaded} type="submit">
-            Search
-          </button>
-        </form>
-      </div>
+      <form onSubmit={e => {
+        e.preventDefault()
+        if (!input.value.trim()) {
+          return
+        }
+        this.props.onSearch(input.value)
+      }}>
+
+        <div className="mdl-textfield mdl-js-textfield mdl-textfiled--expandable mdl-textfield--floating-label">
+          <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="my-input">
+            <i className="material-icons">search</i>
+          </label>
+          <div className="mdl-textfield__expandable-holder">
+            <input className="mdl-textfield__input" type="text" id="my-input" 
+              ref={node => {
+                input = node
+              }} 
+              disabled={!this.props.isApiLoaded}
+            />
+            <label className="mdl-textfield__label" htmlFor="my-input">
+              Enter YouTube Search...
+            </label>
+          </div>
+        </div>
+      </form>
     )
   }
 }

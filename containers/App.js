@@ -27,33 +27,28 @@ class App extends Component {
     const { isFetching, items } = this.props
     const isEmpty = items.length === 0
     return (
-      <div className="container-fluid">
-        <div className="row"></div>
-
-        <div className="row">
-          <div className="col-sm-2">
-            some sample content
-          </div>
-          <div className="col-sm-10">
+      <div className="mdl-grid">
+        <div className="mdl-cell mdl-cell--3-col">
             <Search onSearch={this.handleSearch} />
 
             {!isFetching &&
               <button
-                 onClick={this.handleResetClick}>
+                 onClick={this.handleResetClick}
+                 className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                 >
                 Reset
               </button>
             }
+        </div>
 
+        <div className="mdl-cell mdl-cell--9-col">
             {isEmpty
               ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
               : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
                   <Items items={items} />
                 </div>
             }
-          </div>
         </div>
-
-        <footer className="row"></footer>
       </div>
     )
   }
