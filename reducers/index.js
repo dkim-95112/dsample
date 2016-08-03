@@ -4,7 +4,7 @@ import {
   REQUEST, RECEIVE
 } from '../actions'
 
-function search(state = {
+export function search(state = {
   isApiLoaded: false
 }, action) {
   switch (action.type) {
@@ -17,7 +17,7 @@ function search(state = {
   }
 }
 
-function asyncRequest(state = {
+export function asyncRequest(state = {
   isFetching: false,
   response: {}
 }, action) {
